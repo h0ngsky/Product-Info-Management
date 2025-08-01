@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.6">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;FP Generator&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>max-width: 600px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>input, button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>#result {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: blue;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>word-break: break-word;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #ccc;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;h2&gt;FP Generator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;label for="input"&gt;请输入编码（如：4 1 0 0 ... 或 4100001000000000）:&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;input type="text" id="input" placeholder="例如：4 1 0 0 或 4100001000000000"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button onclick="convert()"&gt;转换&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="result"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;button onclick="copyResult()"&gt;复制结果&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function encodeInput(input) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>input = input.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (input.includes(' ')) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const tokens = input.split(/\s+/);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return tokens.map(token =&gt; '0' + token).join('');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else if (/^\d+$/.test(input)) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return input.split('').map(d =&gt; '0' + d).join('');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>throw new Error("Invalid input. Only digits and spaces are allowed.");</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function convert() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const input = document.getElementById('input').value;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const resultBox = document.getElementById('result');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const result = encodeInput(input);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>resultBox.textContent = result;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>alert(error.message);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>resultBox.textContent = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function copyResult() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const result = document.getElementById('result').textContent;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (result) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>navigator.clipboard.writeText(result).then(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>alert("复制成功：结果已复制到剪贴板！");</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).catch(err =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>alert("复制失败：" + err);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
